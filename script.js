@@ -1,11 +1,12 @@
+// Initial quiz score declaration
+var score = 0;
+
 // Create elements for multiple choices for Quiz 1
 var ulista = document.createElement("ul");
 var option1a = document.createElement("li");
 var option2a = document.createElement("li");
 var option3a = document.createElement("li");
 var option4a = document.createElement("li");
-
-var score = 0;
 
 // Create elements for multiple choices for Quiz 2
 var ulistb = document.createElement("ul");
@@ -21,6 +22,21 @@ var option2c = document.createElement("li");
 var option3c = document.createElement("li");
 var option4c = document.createElement("li");
 
+// Create elements for multiple choices for Quiz 4
+var ulistd = document.createElement("ul");
+var option1d = document.createElement("li");
+var option2d = document.createElement("li");
+var option3d = document.createElement("li");
+var option4d = document.createElement("li");
+
+// Create elements for multiple choices for Quiz 5
+var uliste = document.createElement("ul");
+var option1e = document.createElement("li");
+var option2e = document.createElement("li");
+var option3e = document.createElement("li");
+var option4e = document.createElement("li");
+
+
 // Create notification elements for right or wrong answer 
 var notifyGreen = document.createElement("p")
 var notifyRed = document.createElement("p")
@@ -33,37 +49,58 @@ var timerEl = document.getElementById("time")
 var questionTitleA = document.getElementById("question-titleA");
 var questionTitleB = document.getElementById("question-titleB");
 var questionTitleC = document.getElementById("question-titleC");
+var questionTitleD = document.getElementById("question-titleD");
+var questionTitleE = document.getElementById("question-titleE");
 
 // Select HTML elements for rendering multiple choice answers by ID 
 var choicesA = document.getElementById("choicesA");
 var choicesB = document.getElementById("choicesB");
 var choicesC = document.getElementById("choicesC");
+var choicesD = document.getElementById("choicesD");
+var choicesE = document.getElementById("choicesE");
+
 
 // Select HTML elements for rendering Quizzes (by ID) 
 var questionOne = document.getElementById("questionOne");
 var questionTwo = document.getElementById("questionTwo");
 var questionThree = document.getElementById("questionThree");
+var questionFour = document.getElementById("questionFour");
+var questionFive = document.getElementById("questionFive");
 
 // Write Text-Content for multiple choice answers (Quiz 1)
 option1a.textContent = "Javascript";
 option2a.textContent = "HTML";
 option3a.textContent = "CSS";
 option4a.textContent = "jQuery";
-option2a.setAttribute("class", "answer")
+option2a.setAttribute("class", "answer");
 
 // Write Text-Content for multiple choice answers (Quiz 2)
 option1b.textContent = "Contact Style Signals";
 option2b.textContent = "Computer Skills System";
 option3b.textContent = "Carriers Style Signs";
 option4b.textContent = "Cascading Style Sheet";
-option4b.setAttribute("class", "answer")
+option4b.setAttribute("class", "answer");
 
 // Write Text-Content for multiple choice answers (Quiz 3)
 option1c.textContent = "Building interaction into applications";
 option2c.textContent = "Drawing objects on the screen";
 option3c.textContent = "Buying and selling crypto";
 option4c.textContent = "Debugging";
-option1c.setAttribute("class", "answer")
+option1c.setAttribute("class", "answer");
+
+// Write Text-Content for multiple choice answers (Quiz 4)
+option1d.textContent = "Deploying applications to the web";
+option2d.textContent = "Just styling the content";
+option3d.textContent = "Copying and pasting large content";
+option4d.textContent = "Accessing and manipulating elements of the document object";
+option4d.setAttribute("class", "answer");
+
+// Write Text-Content for multiple choice answers (Quiz 5)
+option1e.textContent = "Make new server equipment";
+option2e.textContent = "Create elements dynamically using Javascript and the DOM";
+option3e.textContent = "Create computers from scratch";
+option4e.textContent = "Manipulate the web";
+option2e.setAttribute("class", "answer");
 
 // Write and style Text-Content for notification messages
 notifyGreen.style.color = "green"
@@ -89,10 +126,24 @@ ulistc.appendChild(option2c);
 ulistc.appendChild(option3c);
 ulistc.appendChild(option4c);
 
+// Append Quiz 4 answers
+ulistd.appendChild(option1d);
+ulistd.appendChild(option2d);
+ulistd.appendChild(option3d);
+ulistd.appendChild(option4d);
+
+// Append Quiz 5 answers
+uliste.appendChild(option1e);
+uliste.appendChild(option2e);
+uliste.appendChild(option3e);
+uliste.appendChild(option4e);
+
+
 // Add Event Listener for Quiz 1
 ulista.addEventListener("click", function(event) {
 var element = event.target;
 if(element.matches(".answer")) {
+    notifyEl.textContent = "";
     notifyEl.appendChild(notifyGreen);
     score = 20 + score;
     console.log(score);
@@ -101,6 +152,7 @@ if(element.matches(".answer")) {
     
 }
 else {
+    notifyEl.textContent = "";
     notifyEl.appendChild(notifyRed);
     timeLeft = timeLeft-10;
     questionOne.setAttribute("class", "hide");
@@ -112,6 +164,7 @@ else {
 ulistb.addEventListener("click", function(event) {
 var element = event.target;
     if(element.matches(".answer")) {
+        notifyEl.textContent = "";
         notifyEl.appendChild(notifyGreen);
         score = 20 + score;
         console.log(score);
@@ -119,6 +172,7 @@ var element = event.target;
         showQuizThree();      
 }
 else {
+        notifyEl.textContent = "";
         notifyEl.appendChild(notifyRed);
         timeLeft = timeLeft-10;
         questionTwo.setAttribute("class", "hide");
@@ -130,19 +184,76 @@ else {
 ulistc.addEventListener("click", function(event) {
 var element = event.target;
     if(element.matches(".answer")) {
+        notifyEl.textContent = "";
         notifyEl.appendChild(notifyGreen);
         score = 20 + score;
         console.log(score);
         questionThree.setAttribute("class", "hide");
-        // showQuizTwo();      
+        showQuizFour();      
 }
 else {
+        notifyEl.textContent = "";
         notifyEl.appendChild(notifyRed);
         timeLeft = timeLeft-10;
         questionThree.setAttribute("class", "hide");
-        // showQuizTwo();  
+        showQuizFour();  
     }
     })
+
+// Add Event Listener for Quiz 4
+ulistd.addEventListener("click", function(event) {
+    var element = event.target;
+        if(element.matches(".answer")) {
+            notifyEl.textContent = "";
+            notifyEl.appendChild(notifyGreen);
+            score = 20 + score;
+            console.log(score);
+            questionFour.setAttribute("class", "hide");
+            showQuizFive();      
+    }
+    else {
+            
+            notifyEl.textContent = "";    
+            notifyEl.appendChild(notifyRed);
+            timeLeft = timeLeft-10;
+            questionFour.setAttribute("class", "hide");
+            showQuizFive();  
+        }
+        })
+
+
+// Add Event Listener for Quiz 5
+uliste.addEventListener("click", function(event) {
+    var element = event.target;
+        if(element.matches(".answer")) {
+            notifyEl.textContent = "";
+            notifyEl.appendChild(notifyGreen);
+            score = 20 + score;
+            console.log(score);
+            questionFive.setAttribute("class", "hide");
+    }
+    else {
+            
+            notifyEl.textContent = "";
+            notifyEl.appendChild(notifyRed);
+            timeLeft = timeLeft-10;
+            questionFive.setAttribute("class", "hide");
+        }
+        })
+
+// Function for Quiz 5
+function showQuizFive() {
+    questionFive.removeAttribute("class");
+    questionTitleE.textContent = "What is the 'createElement' method used for?"
+    choicesE.appendChild(uliste);
+    } 
+
+// Function for Quiz 4
+function showQuizFour() {
+    questionFour.removeAttribute("class");
+    questionTitleD.textContent = "One important use of the DOM is:?";
+    choicesD.appendChild(ulistd);
+    } 
 
 // Function for Quiz 3
 function showQuizThree() {
@@ -150,7 +261,6 @@ function showQuizThree() {
     questionTitleC.textContent = "What is Javascript essentially used for?";
     choicesC.appendChild(ulistc);
     } 
-
 
 // Function for Quiz 2
 function showQuizTwo() {
@@ -171,13 +281,25 @@ function showQuiz() {
 timeLeft = 40;
 function handleTimer() {
     var timer = setInterval(function(){
-        if(timeLeft >= 0) {
-            timerEl.textContent = timeLeft;
-            timeLeft--;            
-        }
-        }, 1000);
+        timerEl.textContent = timeLeft;
+        if(timeLeft > 0) {
+        timeLeft--;}
+        else {
+    questionTitleA.textContent = "";
+    questionTitleB.textContent = "";
+    questionTitleC.textContent = "";
+    questionTitleD.textContent = "";
+    questionTitleE.textContent = "";
+    choicesA.textContent = "";
+    choicesB.textContent = "";
+    choicesC.textContent = "";
+    choicesD.textContent = "";
+    choicesE.textContent = "";
+    notifyEl.textContent = "";
+    clearInterval(timer);
 
-        if(timeLeft === 0){
-            clearInterval(timer)
+        }           
         }
-    }
+        , 1000);
+
+}
