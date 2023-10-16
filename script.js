@@ -1,6 +1,8 @@
 // Initial quiz score declaration
 var score = 0;
 
+var yourScore = document.createElement("h1");
+
 // Create elements for multiple choices for Quiz 1
 var ulista = document.createElement("ul");
 var option1a = document.createElement("li");
@@ -44,6 +46,7 @@ var notifyEl = document.getElementById("notify");
 
 // Select the HTML Timer element
 var timerEl = document.getElementById("time")
+var startButton = document.getElementById("start")
 
 // Create question elements
 var questionTitleA = document.getElementById("question-titleA");
@@ -108,6 +111,8 @@ notifyRed.style.color = "red"
 notifyGreen.textContent = "Correct Answer!"
 notifyRed.textContent = "Wrong Answer!"
 
+yourScore.setAttribute("style","font-weight: 800; font-size: 60px; text-align: center");
+
 // Append Quiz 1 answers
 ulista.appendChild(option1a);
 ulista.appendChild(option2a);
@@ -138,128 +143,12 @@ uliste.appendChild(option2e);
 uliste.appendChild(option3e);
 uliste.appendChild(option4e);
 
-
-// Add Event Listener for Quiz 1
-ulista.addEventListener("click", function(event) {
-var element = event.target;
-if(element.matches(".answer")) {
-    notifyEl.textContent = "";
-    notifyEl.appendChild(notifyGreen);
-    score = 20 + score;
-    console.log(score);
-    questionOne.setAttribute("class", "hide");
-    showQuizTwo();
-    
-}
-else {
-    notifyEl.textContent = "";
-    notifyEl.appendChild(notifyRed);
-    timeLeft = timeLeft-10;
-    questionOne.setAttribute("class", "hide");
-    showQuizTwo();
-}
-})
-
-// Add Event Listener for Quiz 2
-ulistb.addEventListener("click", function(event) {
-var element = event.target;
-    if(element.matches(".answer")) {
-        notifyEl.textContent = "";
-        notifyEl.appendChild(notifyGreen);
-        score = 20 + score;
-        console.log(score);
-        questionTwo.setAttribute("class", "hide");
-        showQuizThree();      
-}
-else {
-        notifyEl.textContent = "";
-        notifyEl.appendChild(notifyRed);
-        timeLeft = timeLeft-10;
-        questionTwo.setAttribute("class", "hide");
-        showQuizThree();  
-    }
-    })
-
-// Add Event Listener for Quiz 3
-ulistc.addEventListener("click", function(event) {
-var element = event.target;
-    if(element.matches(".answer")) {
-        notifyEl.textContent = "";
-        notifyEl.appendChild(notifyGreen);
-        score = 20 + score;
-        console.log(score);
-        questionThree.setAttribute("class", "hide");
-        showQuizFour();      
-}
-else {
-        notifyEl.textContent = "";
-        notifyEl.appendChild(notifyRed);
-        timeLeft = timeLeft-10;
-        questionThree.setAttribute("class", "hide");
-        showQuizFour();  
-    }
-    })
-
-// Add Event Listener for Quiz 4
-ulistd.addEventListener("click", function(event) {
-    var element = event.target;
-        if(element.matches(".answer")) {
-            notifyEl.textContent = "";
-            notifyEl.appendChild(notifyGreen);
-            score = 20 + score;
-            console.log(score);
-            questionFour.setAttribute("class", "hide");
-            showQuizFive();      
-    }
-    else {
-            
-            notifyEl.textContent = "";    
-            notifyEl.appendChild(notifyRed);
-            timeLeft = timeLeft-10;
-            questionFour.setAttribute("class", "hide");
-            showQuizFive();  
-        }
-        })
-
-
-// Add Event Listener for Quiz 5
-uliste.addEventListener("click", function(event) {
-    var element = event.target;
-        if(element.matches(".answer")) {
-            notifyEl.textContent = "";
-            notifyEl.appendChild(notifyGreen);
-            score = 20 + score;
-            console.log(score);
-            questionFive.setAttribute("class", "hide");
-    }
-    else {
-            
-            notifyEl.textContent = "";
-            notifyEl.appendChild(notifyRed);
-            timeLeft = timeLeft-10;
-            questionFive.setAttribute("class", "hide");
-        }
-        })
-
-// Function for Quiz 5
-function showQuizFive() {
-    questionFive.removeAttribute("class");
-    questionTitleE.textContent = "What is the 'createElement' method used for?"
-    choicesE.appendChild(uliste);
-    } 
-
-// Function for Quiz 4
-function showQuizFour() {
-    questionFour.removeAttribute("class");
-    questionTitleD.textContent = "One important use of the DOM is:?";
-    choicesD.appendChild(ulistd);
-    } 
-
-// Function for Quiz 3
-function showQuizThree() {
-    questionThree.removeAttribute("class");
-    questionTitleC.textContent = "What is Javascript essentially used for?";
-    choicesC.appendChild(ulistc);
+// Function for Quiz 1
+function showQuiz() {
+    questionOne.removeAttribute("class");
+    questionTitleA.textContent = "Which of these languages can be used to write up the structure of a webpage?";
+    choicesA.appendChild(ulista);
+    handleTimer();
     } 
 
 // Function for Quiz 2
@@ -269,14 +158,27 @@ function showQuizTwo() {
     choicesB.appendChild(ulistb);
     }  
 
-// Function for Quiz 1
-function showQuiz() {
-    questionOne.removeAttribute("class");
-    questionTitleA.textContent = "Which of these languages can be used to write up the structure of a webpage?";
-    choicesA.appendChild(ulista);
-    handleTimer();
-    }  
+// Function for Quiz 3
+function showQuizThree() {
+    questionThree.removeAttribute("class");
+    questionTitleC.textContent = "What is Javascript essentially used for?";
+    choicesC.appendChild(ulistc);
+    }
 
+// Function for Quiz 4
+function showQuizFour() {
+    questionFour.removeAttribute("class");
+    questionTitleD.textContent = "One important use of the DOM is:?";
+    choicesD.appendChild(ulistd);
+    } 
+
+// Function for Quiz 5
+function showQuizFive() {
+    questionFive.removeAttribute("class");
+    questionTitleE.textContent = "What is the 'createElement' method used for?"
+    choicesE.appendChild(uliste);
+    } 
+ 
 // Timer Function
 timeLeft = 40;
 function handleTimer() {
@@ -297,9 +199,129 @@ function handleTimer() {
     choicesE.textContent = "";
     notifyEl.textContent = "";
     clearInterval(timer);
+    startButton.setAttribute("class", "hide");
+    displayScore()
 
         }           
         }
         , 1000);
+}
+
+
+// Add Event Listener for Quiz 1
+ulista.addEventListener("click", function(event) {
+var element = event.target;
+if(element.matches(".answer")) {
+    notifyEl.textContent = "";
+    notifyEl.appendChild(notifyGreen);
+    score = 20 + score;
+    // console.log(score);
+    questionOne.setAttribute("class", "hide");
+    showQuizTwo();
+    
+}
+else {
+    notifyEl.textContent = "";
+    notifyEl.appendChild(notifyRed);
+    timeLeft = timeLeft-10;
+    questionOne.setAttribute("class", "hide");
+    showQuizTwo();
+}
+})
+
+// Add Event Listener for Quiz 2
+ulistb.addEventListener("click", function(event) {
+var element = event.target;
+    if(element.matches(".answer")) {
+        notifyEl.textContent = "";
+        notifyEl.appendChild(notifyGreen);
+        score = 20 + score;
+        // console.log(score);
+        questionTwo.setAttribute("class", "hide");
+        showQuizThree();      
+}
+else {
+        notifyEl.textContent = "";
+        notifyEl.appendChild(notifyRed);
+        timeLeft = timeLeft-10;
+        questionTwo.setAttribute("class", "hide");
+        showQuizThree();  
+    }
+    })
+
+// Add Event Listener for Quiz 3
+ulistc.addEventListener("click", function(event) {
+var element = event.target;
+    if(element.matches(".answer")) {
+        notifyEl.textContent = "";
+        notifyEl.appendChild(notifyGreen);
+        score = 20 + score;
+        // console.log(score);
+        questionThree.setAttribute("class", "hide");
+        showQuizFour();      
+}
+else {
+        notifyEl.textContent = "";
+        notifyEl.appendChild(notifyRed);
+        timeLeft = timeLeft-10;
+        questionThree.setAttribute("class", "hide");
+        showQuizFour();  
+    }
+    })
+
+// Add Event Listener for Quiz 4
+ulistd.addEventListener("click", function(event) {
+    var element = event.target;
+        if(element.matches(".answer")) {
+            notifyEl.textContent = "";
+            notifyEl.appendChild(notifyGreen);
+            score = 20 + score;
+            // console.log(score);
+            questionFour.setAttribute("class", "hide");
+            showQuizFive();      
+    }
+    else {
+            
+            notifyEl.textContent = "";    
+            notifyEl.appendChild(notifyRed);
+            timeLeft = timeLeft-10;
+            questionFour.setAttribute("class", "hide");
+            showQuizFive();  
+        }
+        })
+
+// Add Event Listener for Quiz 5
+uliste.addEventListener("click", function(event) {
+    var element = event.target;
+        if(element.matches(".answer")) {
+            notifyEl.textContent = "";
+            score = 20 + score;
+            questionFive.setAttribute("class", "hide");
+            startButton.setAttribute("class", "hide");
+            timerEl.setAttribute("class", "hide");
+            displayScore();
+            // console.log(score);
+
+    }
+    else {
+            
+            notifyEl.textContent = "";
+            timeLeft = timeLeft-10;
+            questionFive.setAttribute("class", "hide");
+        }
+        })
+
+function displayScore() {
+    yourScore.textContent = `Your score is ${score}%`
+    document.body.appendChild(yourScore);
+}
+
+function getScore() {
+
+}
+
+
+
+function saveInitAndScore() {
 
 }
