@@ -22,14 +22,36 @@
           limit. Keep in mind that incorrect answers will penalize your
           score/time by ten seconds!
         </p>
-        <button id="start">Start Quiz</button>
+        <button id="start" onclick="showQuiz()">Start Quiz</button>
       </div>
 
-      <div id="questions" class="hide">
-        <h2 id="question-title"></h2>
-        <div id="choices" class="choices"></div>
+      <div id="questionOne" class="hide">
+        <h2 id="question-titleA"></h2>
+        <div id="choicesA" class="choicesA"></div>
+        <hr>
       </div>
-
+      <div id="questionTwo" class="hide">
+        <h2 id="question-titleB"></h2>
+        <div id="choicesB" class="choicesB"></div>
+        <hr>
+      </div>
+      <div id="questionThree" class="hide">
+        <h2 id="question-titleC"></h2>
+        <div id="choicesC" class="choicesC"></div>
+        <hr>
+      </div>
+      <div id="questionFour" class="hide">
+        <h2 id="question-titleD"></h2>
+        <div id="choicesD" class="choicesD"></div>
+        <hr>
+      </div>
+      <div id="questionFive" class="hide">
+        <h2 id="question-titleE"></h2>
+        <div id="choicesE" class="choicesE"></div>
+        <hr>
+      </div>
+      <strong id="notify"></strong>
+      
       <div id="end-screen" class="hide">
         <h2>All done!</h2>
         <p>Your final score is <span id="final-score"></span>.</p>
