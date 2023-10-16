@@ -47,6 +47,7 @@ var notifyEl = document.getElementById("notify");
 // Select the HTML Timer element
 var timerEl = document.getElementById("time")
 var startButton = document.getElementById("start")
+var highScores = document.getElementById("highscores")
 
 // Create question elements
 var questionTitleA = document.getElementById("question-titleA");
@@ -314,14 +315,21 @@ uliste.addEventListener("click", function(event) {
 function displayScore() {
     yourScore.textContent = `Your score is ${score}%`
     document.body.appendChild(yourScore);
+    setScore();
 }
 
 function getScore() {
-
+    var rtvScore = localStorage.getItem("Score");
+    var parsedScore = JSON.parse(rtvScore);
+    highScores.textContent = parsedScore;
 }
+getScore()
 
-
+function setScore() {
+    localStorage.setItem("Score", score)
+}
 
 function saveInitAndScore() {
 
 }
+
