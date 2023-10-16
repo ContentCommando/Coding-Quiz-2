@@ -5,12 +5,21 @@ var option2a = document.createElement("li");
 var option3a = document.createElement("li");
 var option4a = document.createElement("li");
 
+var score = 0;
+
 // Create elements for multiple choices for Quiz 2
 var ulistb = document.createElement("ul");
 var option1b = document.createElement("li");
 var option2b = document.createElement("li");
 var option3b = document.createElement("li");
 var option4b = document.createElement("li");
+
+// Create elements for multiple choices for Quiz 3
+var ulistc = document.createElement("ul");
+var option1c = document.createElement("li");
+var option2c = document.createElement("li");
+var option3c = document.createElement("li");
+var option4c = document.createElement("li");
 
 // Create notification elements for right or wrong answer 
 var notifyGreen = document.createElement("p")
@@ -23,14 +32,17 @@ var timerEl = document.getElementById("time")
 // Create question elements
 var questionTitleA = document.getElementById("question-titleA");
 var questionTitleB = document.getElementById("question-titleB");
+var questionTitleC = document.getElementById("question-titleC");
 
 // Select HTML elements for rendering multiple choice answers by ID 
 var choicesA = document.getElementById("choicesA");
 var choicesB = document.getElementById("choicesB");
+var choicesC = document.getElementById("choicesC");
 
 // Select HTML elements for rendering Quizzes (by ID) 
 var questionOne = document.getElementById("questionOne");
 var questionTwo = document.getElementById("questionTwo");
+var questionThree = document.getElementById("questionThree");
 
 // Write Text-Content for multiple choice answers (Quiz 1)
 option1a.textContent = "Javascript";
@@ -45,6 +57,13 @@ option2b.textContent = "Computer Skills System";
 option3b.textContent = "Carriers Style Signs";
 option4b.textContent = "Cascading Style Sheet";
 option4b.setAttribute("class", "answer")
+
+// Write Text-Content for multiple choice answers (Quiz 3)
+option1c.textContent = "Building interaction into applications";
+option2c.textContent = "Drawing objects on the screen";
+option3c.textContent = "Buying and selling crypto";
+option4c.textContent = "Debugging";
+option1c.setAttribute("class", "answer")
 
 // Write and style Text-Content for notification messages
 notifyGreen.style.color = "green"
@@ -64,12 +83,19 @@ ulistb.appendChild(option2b);
 ulistb.appendChild(option3b);
 ulistb.appendChild(option4b);
 
-// Add Event Listener for Quiz A
+// Append Quiz 3 answers
+ulistc.appendChild(option1c);
+ulistc.appendChild(option2c);
+ulistc.appendChild(option3c);
+ulistc.appendChild(option4c);
+
+// Add Event Listener for Quiz 1
 ulista.addEventListener("click", function(event) {
 var element = event.target;
 if(element.matches(".answer")) {
-    option2a.textContent = "Correct Answer!";
     notifyEl.appendChild(notifyGreen);
+    score = 20 + score;
+    console.log(score);
     questionOne.setAttribute("class", "hide");
     showQuizTwo();
     
@@ -82,20 +108,49 @@ else {
 }
 })
 
-// Add Event Listener for Quiz B
+// Add Event Listener for Quiz 2
 ulistb.addEventListener("click", function(event) {
 var element = event.target;
     if(element.matches(".answer")) {
-        option4b.textContent = "Correct Answer!";
         notifyEl.appendChild(notifyGreen);
-        questionTwo.setAttribute("class", "hide");       
+        score = 20 + score;
+        console.log(score);
+        questionTwo.setAttribute("class", "hide");
+        showQuizThree();      
 }
 else {
         notifyEl.appendChild(notifyRed);
         timeLeft = timeLeft-10;
-        questionTwo.setAttribute("class", "hide");   
+        questionTwo.setAttribute("class", "hide");
+        showQuizThree();  
     }
     })
+
+// Add Event Listener for Quiz 3
+ulistc.addEventListener("click", function(event) {
+var element = event.target;
+    if(element.matches(".answer")) {
+        notifyEl.appendChild(notifyGreen);
+        score = 20 + score;
+        console.log(score);
+        questionThree.setAttribute("class", "hide");
+        // showQuizTwo();      
+}
+else {
+        notifyEl.appendChild(notifyRed);
+        timeLeft = timeLeft-10;
+        questionThree.setAttribute("class", "hide");
+        // showQuizTwo();  
+    }
+    })
+
+// Function for Quiz 3
+function showQuizThree() {
+    questionThree.removeAttribute("class");
+    questionTitleC.textContent = "What is Javascript essentially used for?";
+    choicesC.appendChild(ulistc);
+    } 
+
 
 // Function for Quiz 2
 function showQuizTwo() {
