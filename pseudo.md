@@ -12,4 +12,7 @@
 
 6. When the game ends, the user score is displayed.
 
-7. The user is able to save the initials and their score.
+7. The user is able to save their names and their score to a leaderboard.
+(Only scores above 50% can be saved).
+
+8. Add sound effects for wrong and right answers
