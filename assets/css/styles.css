@@ -47,10 +47,24 @@ ol {
 li {
   padding: 5px;
   list-style: none;
+  border-radius: 5px;
+}
+
+li:hover {
+  background-color: #563d7c;
+  color: white;
+  cursor: pointer;
 }
 
 li:nth-child(odd) {
   background-color: #f3edfc;
+  
+}
+
+li:hover:nth-child(odd) {
+  background-color: #563d7c;
+  color: white;
+  cursor: pointer;
 }
 
 .wrapper {

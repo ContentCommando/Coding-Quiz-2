@@ -1,5 +1,10 @@
-// Initial quiz score declaration
+// Initial quiz varuable declarations
 var score = 0;
+var timer;
+var seeScores = document.createElement("h3");
+var cSound = new Audio('assets/sfx/correct.wav');
+var wSound = new Audio('assets/sfx/incorrect.wav');
+
 
 // Create elements for multiple choices for Quiz 1
 var ulista = document.createElement("ul");
@@ -68,6 +73,9 @@ var questionTwo = document.getElementById("questionTwo");
 var questionThree = document.getElementById("questionThree");
 var questionFour = document.getElementById("questionFour");
 var questionFive = document.getElementById("questionFive");
+
+seeScores.textContent = "Click 'View Highscores' link at the top-left to see the Leaderboard.";
+seeScores.setAttribute("Style", "text-align: center; color: #563d7c; margin-top: 50px")
 
 // Write Text-Content for multiple choice answers (Quiz 1)
 option1a.textContent = "Javascript";
@@ -143,9 +151,11 @@ uliste.appendChild(option4e);
 // Function for Quiz 1
 function showQuiz() {
     questionOne.removeAttribute("class");
+    startButton.setAttribute("class", "hide");
     questionTitleA.textContent = "Which of these languages can be used to write up the structure of a webpage?";
     choicesA.appendChild(ulista);
     handleTimer();
+
     } 
 
 // Function for Quiz 2
@@ -165,7 +175,7 @@ function showQuizThree() {
 // Function for Quiz 4
 function showQuizFour() {
     questionFour.removeAttribute("class");
-    questionTitleD.textContent = "One important use of the DOM is:?";
+    questionTitleD.textContent = "One important use of the DOM is: ?";
     choicesD.appendChild(ulistd);
     } 
 
@@ -179,11 +189,11 @@ function showQuizFive() {
 // Timer Function
 timeLeft = 40;
 function handleTimer() {
-    var timer = setInterval(function(){
+    timer = setInterval(function(){
         timerEl.textContent = timeLeft;
         if(timeLeft > 0) {
         timeLeft--;}
-        else {
+        else if (timeLeft === 0 || timeLeft < 0) {
     questionTitleA.textContent = "";
     questionTitleB.textContent = "";
     questionTitleC.textContent = "";
@@ -197,8 +207,11 @@ function handleTimer() {
     notifyEl.textContent = "";
     clearInterval(timer);
     startButton.setAttribute("class", "hide");
-    initSave();
-    
+    wSound.play();
+    alert("TIME UP!");
+    if (score > 50){
+    initSave()};
+    return;
         }           
         }
         , 1000);
@@ -211,6 +224,7 @@ if(element.matches(".answer")) {
     notifyEl.textContent = "";
     notifyEl.appendChild(notifyGreen);
     score = 20 + score;
+    cSound.play();
     // console.log(score);
     questionOne.setAttribute("class", "hide");
     showQuizTwo();
@@ -220,6 +234,7 @@ else {
     notifyEl.textContent = "";
     notifyEl.appendChild(notifyRed);
     timeLeft = timeLeft-10;
+    wSound.play();
     questionOne.setAttribute("class", "hide");
     showQuizTwo();
 }
@@ -232,6 +247,7 @@ var element = event.target;
         notifyEl.textContent = "";
         notifyEl.appendChild(notifyGreen);
         score = 20 + score;
+        cSound.play();
         // console.log(score);
         questionTwo.setAttribute("class", "hide");
         showQuizThree();      
@@ -240,6 +256,7 @@ else {
         notifyEl.textContent = "";
         notifyEl.appendChild(notifyRed);
         timeLeft = timeLeft-10;
+        wSound.play();
         questionTwo.setAttribute("class", "hide");
         showQuizThree();  
     }
@@ -252,6 +269,7 @@ var element = event.target;
         notifyEl.textContent = "";
         notifyEl.appendChild(notifyGreen);
         score = 20 + score;
+        cSound.play();
         // console.log(score);
         questionThree.setAttribute("class", "hide");
         showQuizFour();      
@@ -260,6 +278,7 @@ else {
         notifyEl.textContent = "";
         notifyEl.appendChild(notifyRed);
         timeLeft = timeLeft-10;
+        wSound.play();
         questionThree.setAttribute("class", "hide");
         showQuizFour();  
     }
@@ -272,6 +291,7 @@ ulistd.addEventListener("click", function(event) {
             notifyEl.textContent = "";
             notifyEl.appendChild(notifyGreen);
             score = 20 + score;
+            cSound.play();
             // console.log(score);
             questionFour.setAttribute("class", "hide");
             showQuizFive();      
@@ -281,6 +301,7 @@ ulistd.addEventListener("click", function(event) {
             notifyEl.textContent = "";    
             notifyEl.appendChild(notifyRed);
             timeLeft = timeLeft-10;
+            wSound.play();
             questionFour.setAttribute("class", "hide");
             showQuizFive();  
         }
@@ -292,15 +313,19 @@ uliste.addEventListener("click", function(event) {
         if(element.matches(".answer")) {
             notifyEl.textContent = "";
             score = 20 + score;
+            cSound.play();
             questionFive.setAttribute("class", "hide");
             startButton.setAttribute("class", "hide");
-            timerEl.setAttribute("class", "hide");
-            initSave(); 
+            // timerEl.setAttribute("class", "hide");
+            clearInterval(timer);
+            if (score > 50){
+            initSave(); }
     }
     else {
             
             notifyEl.textContent = "";
             timeLeft = timeLeft-10;
+            wSound.play();
             questionFive.setAttribute("class", "hide");
         }
         })
@@ -308,12 +333,12 @@ uliste.addEventListener("click", function(event) {
 
 function initSave() {
   
-    var nameseek = prompt("You scored " + score + "." + "\n" + "Enter and save your name.")
+    var nameseek = prompt("Wow!!! You scored " + score + "%." + "\n" + "Enter your name on the LEADERBOARD.")
     var num = score;
     convScore = num.toString()
-    scoreInit = nameseek + " - " + convScore + "%";
-    if (nameseek) { 
-    console.log("Hello");
+    scoreInit = " " + nameseek + " - " + convScore + "%";
+    if (nameseek) {
+    document.body.appendChild(seeScores);
     setScoreInArray();        
         }
 }
@@ -333,7 +358,6 @@ function getScore() {
         highScores.textContent = JSON.parse(localStorage.getItem("score"))
     }
 }
-
 
 
 
