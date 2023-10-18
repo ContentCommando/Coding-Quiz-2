@@ -1,8 +1,6 @@
 // Initial quiz score declaration
 var score = 0;
 
-var yourScore = document.createElement("h1");
-
 // Create elements for multiple choices for Quiz 1
 var ulista = document.createElement("ul");
 var option1a = document.createElement("li");
@@ -112,8 +110,6 @@ notifyRed.style.color = "red"
 notifyGreen.textContent = "Correct Answer!"
 notifyRed.textContent = "Wrong Answer!"
 
-yourScore.setAttribute("style","font-weight: 800; font-size: 60px; text-align: center");
-
 // Append Quiz 1 answers
 ulista.appendChild(option1a);
 ulista.appendChild(option2a);
@@ -201,13 +197,12 @@ function handleTimer() {
     notifyEl.textContent = "";
     clearInterval(timer);
     startButton.setAttribute("class", "hide");
-    displayScore()
-
+    initSave();
+    
         }           
         }
         , 1000);
 }
-
 
 // Add Event Listener for Quiz 1
 ulista.addEventListener("click", function(event) {
@@ -300,9 +295,7 @@ uliste.addEventListener("click", function(event) {
             questionFive.setAttribute("class", "hide");
             startButton.setAttribute("class", "hide");
             timerEl.setAttribute("class", "hide");
-            displayScore();
-            // console.log(score);
-
+            initSave(); 
     }
     else {
             
@@ -312,24 +305,37 @@ uliste.addEventListener("click", function(event) {
         }
         })
 
-function displayScore() {
-    yourScore.textContent = `Your score is ${score}%`
-    document.body.appendChild(yourScore);
-    setScore();
+
+function initSave() {
+  
+    var nameseek = prompt("You scored " + score + "." + "\n" + "Enter and save your name.")
+    var num = score;
+    convScore = num.toString()
+    scoreInit = nameseek + " - " + convScore + "%";
+    if (nameseek) { 
+    console.log("Hello");
+    setScoreInArray();        
+        }
+}
+
+function setScoreInArray() {
+if (localStorage.getItem("score") == null) {
+    localStorage.setItem("score", "[]"); 
+}
+    var newScore = JSON.parse(localStorage.getItem("score"));
+    newScore.push(scoreInit);
+    localStorage.setItem("score", JSON.stringify(newScore));
+    
 }
 
 function getScore() {
-    var rtvScore = localStorage.getItem("Score");
-    var parsedScore = JSON.parse(rtvScore);
-    highScores.textContent = parsedScore;
+    if (localStorage.getItem("score") != null) {
+        highScores.textContent = JSON.parse(localStorage.getItem("score"))
+    }
 }
+
+
+
+
+
 getScore()
-
-function setScore() {
-    localStorage.setItem("Score", score)
-}
-
-function saveInitAndScore() {
-
-}
-
